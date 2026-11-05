@@ -1,0 +1,780 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REAL UNITED | 1000 Quotes Generator</title>
+
+<style>
+:root {
+    --gold: #d4af37;
+    --gold-light: #f5d77a;
+    --black: #080808;
+    --dark: #121212;
+    --gray: #999;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--black);
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    padding: 35px 15px;
+    border-bottom: 1px solid #604b19;
+    background: linear-gradient(135deg,#080808,#19140a);
+}
+
+.logo {
+    color: var(--gold);
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 7px;
+}
+
+header p {
+    color: #aaa;
+    font-family: Arial, sans-serif;
+    letter-spacing: 3px;
+    font-size: 11px;
+    margin-top: 10px;
+}
+
+.container {
+    max-width: 950px;
+    margin: auto;
+    padding: 35px 20px;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.heading h1 {
+    color: var(--gold);
+    font-size: clamp(27px,5vw,42px);
+    margin-bottom: 12px;
+}
+
+.heading p {
+    color: #aaa;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.stat {
+    background: #141414;
+    border: 1px solid #57451b;
+    padding: 15px 25px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 130px;
+}
+
+.stat h2 {
+    color: var(--gold);
+    font-size: 25px;
+}
+
+.stat p {
+    color: #aaa;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.categories button,
+.controls button,
+.action-buttons button {
+    cursor: pointer;
+    transition: .3s;
+    font-family: Arial, sans-serif;
+}
+
+.categories button {
+    background: #151515;
+    color: #ccc;
+    border: 1px solid #514019;
+    padding: 11px 16px;
+    border-radius: 30px;
+}
+
+.categories button:hover,
+.categories button.active {
+    background: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+}
+
+.quote-card {
+    position: relative;
+    background:
+        radial-gradient(circle at top right,#30250d 0%,transparent 45%),
+        linear-gradient(145deg,#171717,#080808);
+    border: 1px solid var(--gold);
+    border-radius: 18px;
+    padding: 55px 35px;
+    text-align: center;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 40px #000;
+}
+
+.quote-mark {
+    font-size: 70px;
+    color: var(--gold);
+    line-height: .8;
+}
+
+#categoryLabel {
+    color: var(--gold-light);
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin: 20px 0;
+    text-transform: uppercase;
+}
+
+#quoteText {
+    font-size: clamp(21px,4vw,32px);
+    line-height: 1.6;
+    max-width: 750px;
+    color: #f5f0e5;
+}
+
+.quote-footer {
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 3px;
+    margin-top: 30px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.controls button,
+.action-buttons button {
+    padding: 13px 22px;
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    font-size: 13px;
+}
+
+.controls button.primary {
+    background: var(--gold);
+    color: black;
+    font-weight: bold;
+}
+
+.controls button:hover,
+.action-buttons button:hover {
+    background: var(--gold-light);
+    color: black;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.search-area {
+    display: flex;
+    gap: 10px;
+    margin: 30px 0;
+}
+
+.search-area input {
+    flex: 1;
+    min-width: 0;
+    background: #151515;
+    color: white;
+    border: 1px solid #57451b;
+    padding: 14px;
+    border-radius: 8px;
+    outline: none;
+}
+
+.search-area input:focus {
+    border-color: var(--gold);
+}
+
+.search-area button {
+    background: var(--gold);
+    border: none;
+    padding: 0 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.results {
+    background: #111;
+    border: 1px solid #493b1c;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.results h3 {
+    color: var(--gold);
+    margin-bottom: 15px;
+}
+
+.quote-result {
+    padding: 15px 0;
+    border-bottom: 1px solid #333;
+    color: #ddd;
+    line-height: 1.5;
+}
+
+.quote-result small {
+    display: block;
+    color: var(--gold);
+    margin-top: 7px;
+}
+
+footer {
+    text-align: center;
+    padding: 35px 15px;
+    color: #777;
+    border-top: 1px solid #3c3016;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 2;
+}
+
+footer strong {
+    color: var(--gold);
+}
+
+@media(max-width:600px) {
+    .logo { font-size: 25px; }
+    .quote-card { padding: 35px 20px; }
+    .search-area { flex-direction: column; }
+    .search-area button { padding: 14px; }
+    .controls button { padding: 12px 15px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">REAL UNITED</div>
+    <p>QUOTES • WISDOM • INSPIRATION</p>
+</header>
+
+<main class="container">
+
+    <section class="heading">
+        <h1>1000 Quotes Generator</h1>
+        <p>Discover words that inspire, connect, and change perspectives.</p>
+    </section>
+
+    <section class="stats">
+        <div class="stat">
+            <h2 id="totalQuotes">1000</h2>
+            <p>TOTAL QUOTES</p>
+        </div>
+        <div class="stat">
+            <h2 id="quoteNumber">1</h2>
+            <p>CURRENT QUOTE</p>
+        </div>
+        <div class="stat">
+            <h2 id="favoriteCount">0</h2>
+            <p>FAVORITES</p>
+        </div>
+    </section>
+
+
+    <section class="quote-card">
+        <div class="quote-mark">“</div>
+        <div id="categoryLabel">LIFE & PERSONAL GROWTH</div>
+        <div id="quoteText">Your journey begins with the courage to take the first step.</div>
+        <div class="quote-footer">— REAL UNITED —</div>
+    </section>
+
+    <div class="controls">
+        <button class="primary" onclick="randomQuote()">✦ Random Quote</button>
+    </div>
+
+    <div class="action-buttons">
+        <button onclick="copyQuote()">📋 Copy Quote</button>
+        <button onclick="toggleFavorite()">♡ Add Favorite</button>
+        <button onclick="showFavorites()">★ My Favorites</button>
+    </div>   
+
+    <div id="results"></div>
+
+</main>
+
+<footer>
+    <strong>REAL UNITED</strong><br>
+    One Community. One Inspiration. One United Voice.<br>
+    © 2026 REAL UNITED. All Rights Reserved.
+</footer>
+
+<script>
+
+// =====================================
+// REAL UNITED - 1000 QUOTE GENERATOR
+// =====================================
+
+const quoteData = {
+
+"Emotions & Relationships": {
+    starts: [
+        "Love is not measured by distance",
+        "A genuine heart never needs a perfect world",
+        "Trust grows where honesty is welcomed",
+        "Sometimes silence carries the deepest emotions",
+        "Friendship becomes beautiful when loyalty remains",
+        "A kind word can change someone's entire day",
+        "The strongest connections are built on understanding",
+        "True affection does not demand perfection",
+        "A peaceful heart knows when to forgive",
+        "Respect is the foundation of every lasting relationship",
+        "Some memories remain precious through every season",
+        "Compassion makes ordinary moments meaningful",
+        "A sincere apology opens the door to healing",
+        "Real friendship does not compete for attention",
+        "Love becomes stronger through patience",
+        "Every heart deserves kindness and respect",
+        "Listening is one of the purest forms of love",
+        "Distance cannot erase a meaningful connection",
+        "Honesty makes relationships stronger",
+        "The best people bring peace into your life"
+    ],
+    ends: [
+        "the heart remembers what truly matters",
+        "loyalty speaks louder than promises",
+        "understanding makes every bond stronger",
+        "kindness leaves a lasting impression",
+        "genuine connections are worth protecting",
+        "respect gives love its deepest meaning",
+        "patience allows hearts to grow together",
+        "forgiveness creates room for new beginnings",
+        "sincerity is more valuable than appearances",
+        "beautiful relationships begin with honest intentions"
+    ]
+},
+
+"Life & Personal Growth": {
+    starts: [
+        "Every sunrise offers another opportunity",
+        "Success begins with believing in your potential",
+        "Growth often starts outside your comfort zone",
+        "A small step can create a great journey",
+        "Your past is a lesson rather than a destination",
+        "Discipline turns ordinary dreams into progress",
+        "Every challenge carries a valuable lesson",
+        "Great achievements begin with humble beginnings",
+        "Your future is shaped by today's choices",
+        "Patience is a powerful companion of progress",
+        "The courage to begin is already an achievement",
+        "Mistakes are part of becoming wiser",
+        "A focused mind creates meaningful possibilities",
+        "Personal growth requires honesty with yourself",
+        "Consistency gives purpose to your efforts",
+        "A difficult chapter does not define your whole story",
+        "Every experience can teach something valuable",
+        "Confidence grows through action and experience",
+        "Your potential expands when curiosity stays alive",
+        "The road to improvement begins with intention"
+    ],
+    ends: [
+        "progress matters more than perfection",
+        "every effort becomes part of your story",
+        "consistency builds lasting confidence",
+        "wisdom grows through experience",
+        "determination makes difficult goals possible",
+        "the journey is as important as the destination",
+        "your mindset influences your direction",
+        "growth rewards those who keep learning",
+        "today's choices shape tomorrow's opportunities",
+        "courage turns possibilities into action"
+    ]
+},
+
+"Nature & Environment": {
+    starts: [
+        "The forest teaches patience without speaking",
+        "Every river finds its own journey",
+        "Nature reminds us that change is beautiful",
+        "The mountains stand as symbols of endurance",
+        "A quiet garden holds countless lessons",
+        "The ocean carries stories beyond imagination",
+        "Every tree begins with a tiny seed",
+        "The morning breeze brings a gentle reminder",
+        "Rain gives the earth another opportunity",
+        "The stars make the night feel endless",
+        "A beautiful planet deserves thoughtful protection",
+        "Green spaces bring balance to busy lives",
+        "The beauty of nature needs no explanation",
+        "Every season has its own purpose",
+        "Wildlife makes our world wonderfully diverse",
+        "A clean environment begins with responsible choices",
+        "The sunlight gives new meaning to mornings",
+        "The earth provides more than we often notice",
+        "A peaceful landscape can refresh the mind",
+        "Natural beauty reminds us to stay humble"
+    ],
+    ends: [
+        "harmony begins with respect for the earth",
+        "every living thing has its place",
+        "small actions can protect a greater future",
+        "the natural world deserves our gratitude",
+        "balance is essential for every ecosystem",
+        "beauty grows when we learn to care",
+        "protecting nature protects tomorrow",
+        "every season brings a different lesson",
+        "the planet is a shared responsibility",
+        "life flourishes where care and balance exist"
+    ]
+},
+
+"Culture, Arts & Society": {
+    starts: [
+        "Culture gives communities their identity",
+        "Art allows imagination to speak freely",
+        "Every tradition carries a piece of history",
+        "Music connects people beyond spoken language",
+        "A creative mind sees possibilities everywhere",
+        "Diversity makes communities more meaningful",
+        "Stories preserve the memories of generations",
+        "Artistic expression gives ideas a voice",
+        "A strong society values every individual",
+        "Education opens doors to new perspectives",
+        "Creativity transforms ordinary ideas into beauty",
+        "Different voices can build a stronger community",
+        "History helps us understand our present",
+        "Respect keeps cultural traditions alive",
+        "Literature allows us to explore different worlds",
+        "Unity becomes powerful through mutual understanding",
+        "Every generation adds something to society",
+        "A shared vision can inspire positive change",
+        "Knowledge becomes richer when shared",
+        "Creative expression brings people together"
+    ],
+    ends: [
+        "heritage connects yesterday with tomorrow",
+        "every perspective deserves thoughtful consideration",
+        "creativity has no single definition",
+        "understanding makes diversity a strength",
+        "art keeps human imagination alive",
+        "community grows through cooperation",
+        "knowledge creates opportunities for everyone",
+        "traditions become meaningful through appreciation",
+        "respect builds bridges between cultures",
+        "positive change begins with collective effort"
+    ]
+},
+
+"Faith & Philosophy": {
+    starts: [
+        "Faith gives the heart strength during uncertainty",
+        "Wisdom begins with the willingness to question",
+        "A grateful heart discovers beauty in simplicity",
+        "Peace grows when the mind seeks understanding",
+        "Hope gives meaning to uncertain journeys",
+        "Humility is a sign of genuine wisdom",
+        "Every question can open a new perspective",
+        "Gratitude changes the way we see life",
+        "A quiet mind can discover deeper truths",
+        "Purpose gives direction to our actions",
+        "Patience teaches lessons that haste cannot",
+        "The search for truth requires an open mind",
+        "Inner peace begins with thoughtful choices",
+        "Faith and wisdom can guide difficult decisions",
+        "A meaningful life is built through values",
+        "Reflection helps us understand ourselves",
+        "Kindness is a philosophy worth practicing",
+        "Hope encourages us to look beyond today",
+        "True wisdom recognizes the limits of knowledge",
+        "A thankful spirit finds value in simple things"
+    ],
+    ends: [
+        "wisdom grows through reflection",
+        "peace begins with a grateful perspective",
+        "truth deserves patience and understanding",
+        "faith can bring strength to the journey",
+        "humility makes knowledge more meaningful",
+        "purpose gives direction to every step",
+        "hope keeps possibilities alive",
+        "a thoughtful life is a meaningful life",
+        "understanding is greater than assumption",
+        "gratitude brings clarity to everyday moments"
+    ]
+}
+
+};
+
+// =====================================
+// GENERATE EXACTLY 1000 QUOTES
+// =====================================
+
+let allQuotes = [];
+
+Object.entries(quoteData).forEach(([category, data]) => {
+    data.starts.forEach(start => {
+        data.ends.forEach(end => {
+            allQuotes.push({
+                category: category,
+                text: start + " — " + end + "."
+            });
+        });
+    });
+});
+
+let filteredQuotes = [...allQuotes];
+let currentIndex = 0;
+let currentCategory = "All";
+let favorites = JSON.parse(
+    localStorage.getItem("ruFavorites") || "[]"
+);
+
+// =====================================
+// DISPLAY QUOTES
+// =====================================
+
+function displayQuote() {
+    if (!filteredQuotes.length) return;
+
+    const quote = filteredQuotes[currentIndex];
+
+    document.getElementById("quoteText").textContent =
+        quote.text;
+
+    document.getElementById("categoryLabel").textContent =
+        quote.category;
+
+    document.getElementById("quoteNumber").textContent =
+        currentIndex + 1;
+
+    document.getElementById("totalQuotes").textContent =
+        allQuotes.length;
+
+    document.getElementById("favoriteCount").textContent =
+        favorites.length;
+
+    const isFavorite = favorites.some(
+        item => item.text === quote.text
+    );
+
+    document.querySelector(
+        ".action-buttons button:nth-child(2)"
+    ).textContent = isFavorite
+        ? "♥ Remove Favorite"
+        : "♡ Add Favorite";
+}
+
+function randomQuote() {
+    if (!filteredQuotes.length) return;
+
+    currentIndex = Math.floor(
+        Math.random() * filteredQuotes.length
+    );
+
+    displayQuote();
+}
+
+function nextQuote() {
+    currentIndex =
+        (currentIndex + 1) % filteredQuotes.length;
+
+    displayQuote();
+}
+
+function previousQuote() {
+    currentIndex =
+        (currentIndex - 1 + filteredQuotes.length)
+        % filteredQuotes.length;
+
+    displayQuote();
+}
+
+// =====================================
+// CATEGORY FILTER
+// =====================================
+
+document.querySelectorAll(
+    "#categories button"
+).forEach(button => {
+
+    button.addEventListener("click", function() {
+
+        document.querySelectorAll(
+            "#categories button"
+        ).forEach(btn => btn.classList.remove("active"));
+
+        this.classList.add("active");
+
+        currentCategory = this.dataset.category;
+
+        filteredQuotes = currentCategory === "All"
+            ? [...allQuotes]
+            : allQuotes.filter(
+                q => q.category === currentCategory
+            );
+
+        currentIndex = 0;
+        document.getElementById("results").innerHTML = "";
+
+        displayQuote();
+    });
+
+});
+
+// =====================================
+// COPY QUOTE
+// =====================================
+
+async function copyQuote() {
+    const quote = filteredQuotes[currentIndex];
+
+    try {
+        await navigator.clipboard.writeText(
+            "“" + quote.text + "”\n— REAL UNITED"
+        );
+        alert("Quote copied successfully!");
+    } catch (error) {
+        alert("Copy is unavailable in this browser.");
+    }
+}
+
+// =====================================
+// FAVORITES
+// =====================================
+
+function toggleFavorite() {
+    const quote = filteredQuotes[currentIndex];
+
+    const index = favorites.findIndex(
+        item => item.text === quote.text
+    );
+
+    if (index >= 0) {
+        favorites.splice(index, 1);
+    } else {
+        favorites.push(quote);
+    }
+
+    localStorage.setItem(
+        "ruFavorites",
+        JSON.stringify(favorites)
+    );
+
+    displayQuote();
+}
+
+function showFavorites() {
+    const results = document.getElementById("results");
+
+    if (!favorites.length) {
+        results.innerHTML =
+            '<div class="results">No favorite quotes saved yet.</div>';
+        return;
+    }
+
+    results.innerHTML = `
+        <div class="results">
+        <h3>★ YOUR FAVORITE QUOTES</h3>
+        ${favorites.map(q => `
+            <div class="quote-result">
+                “${q.text}”
+                <small>${q.category}</small>
+            </div>
+        `).join("")}
+        </div>
+    `;
+}
+
+// =====================================
+// SEARCH QUOTES
+// =====================================
+
+function searchQuotes() {
+    const keyword = document.getElementById(
+        "searchInput"
+    ).value.toLowerCase().trim();
+
+    const results = document.getElementById("results");
+
+    if (!keyword) {
+        results.innerHTML = "";
+        return;
+    }
+
+    const matches = allQuotes.filter(q =>
+        q.text.toLowerCase().includes(keyword) ||
+        q.category.toLowerCase().includes(keyword)
+    );
+
+    results.innerHTML = `
+        <div class="results">
+        <h3>SEARCH RESULTS (${matches.length})</h3>
+
+        ${matches.length ? matches.map(q => `
+            <div class="quote-result">
+                “${q.text}”
+                <small>${q.category}</small>
+            </div>
+        `).join("") : "No quotes found."}
+
+        </div>
+    `;
+}
+
+// =====================================
+// INITIALIZE
+// =====================================
+
+document.getElementById("totalQuotes").textContent =
+    allQuotes.length;
+
+displayQuote();
+
+</script>
+
+</body>
+</html>
